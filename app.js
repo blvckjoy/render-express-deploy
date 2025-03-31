@@ -5,6 +5,11 @@ const userRoutes = require("./routes/userRoutes");
 
 app.use(express.json());
 
+// Root route
+app.get("/", (req, res) => {
+   res.send("Users' API");
+});
+
 app.use("/users", userRoutes);
 
 app.listen(PORT, () => {
