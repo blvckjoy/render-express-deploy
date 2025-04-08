@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
       id: users.length + 1,
    };
    users.push(user);
-   res.status(201).json({ message: "User created successfully" }, user);
+   res.status(201).json({ message: "User created successfully" });
 });
 
 // Update User
