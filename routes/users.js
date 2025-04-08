@@ -10,8 +10,8 @@ router.get("/", (req, res) => {
 
 // Read single user
 router.get("/:id", (req, res) => {
-   const user = users.find((u) => u.id === parseInt(req.params.id));
-   if (!user) return res.status(404).send("User not found");
+   const user = users.find((user) => user.id === parseInt(req.params.id));
+   if (!user) return res.status(404).json({ message: "User not found" });
    res.status(200).json(user);
 });
 
@@ -26,13 +26,13 @@ router.post("/", (req, res) => {
       id: users.length + 1,
    };
    users.push(user);
-   res.status(200).json(user);
+   res.status(201).json({ message: "User created successfully" }, user);
 });
 
 // Update User
-router.put("/:id", (req, res) => {
-   const user = users.find((u) => u.id === parseInt(req.params.id));
-   if (!user) return res.status(404).send("User not found");
+router.patch("/:id", (req, res) => {
+   const user = users.find((user) => user.id === parseInt(req.params.id));
+   if (!user) return res.status(404).json({ message: "User not found" });
 
    const { error } = validateUser(req.body);
    if (error) {
@@ -52,13 +52,13 @@ router.put("/:id", (req, res) => {
 
 // Delete User
 router.delete("/:id", (req, res) => {
-   const user = users.find((u) => u.id === parseInt(req.params.id));
-   if (!user) return res.status(404).send("User not found");
+   const user = users.find((user) => user.id === parseInt(req.params.id));
+   if (!user) return res.status(404).json({ message: "User not found" });
 
    const index = users.indexOf(user);
    users.splice(index, 1);
 
-   res.status(200).json(user);
+   res.status(200).json({ message: "User deleted successfully" });
 });
 
 module.exports = router;
